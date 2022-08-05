@@ -1,0 +1,6 @@
+C:\Users\brand\Documents\GitHub\9TailsApi\9TailsSQL\bin\Debug\9TailsSQL.dacpac
+C:\Users\brand\Documents\GitHub\9TailsApi\9TailsSQL\bin\Debug\_9TailsSQL.dll
+C:\Users\brand\Documents\GitHub\9TailsApi\9TailsSQL\bin\Debug\_9TailsSQL.pdb
+C:\Users\brand\Documents\GitHub\9TailsApi\9TailsSQL\obj\Debug\9TailsSQL.sqlproj.AssemblyReference.cache
+C:\Users\brand\Documents\GitHub\9TailsApi\9TailsSQL\obj\Debug\_9TailsSQL.dll
+C:\Users\brand\Documents\GitHub\9TailsApi\9TailsSQL\obj\Debug\_9TailsSQL.pdb

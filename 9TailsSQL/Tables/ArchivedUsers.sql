@@ -1,0 +1,10 @@
+﻿CREATE TABLE [dbo].[ArchivedUsers]
+(
+	[Id] INT IDENTITY (1, 1) NOT NULL PRIMARY KEY,
+	[UserName] NVARCHAR(255) UNIQUE NOT NULL,
+	[Email] NVARCHAR(255) UNIQUE NOT NULL,
+	[Avatar] NVARCHAR(MAX),
+	[Joined] DATETIME2(7),
+	[Archived] DATETIME2(7),
+	[Password] NVARCHAR(MAX) NOT NULL 
+)
