@@ -8,6 +8,12 @@ using System.Data.SqlClient;
 using System.Data;
 using Microsoft.Extensions.Configuration;
 using System.Configuration;
+using RepoDb;
+using System.Collections;
+using System.Web;
+using RepoDb.DbSettings;
+using RepoDb.DbHelpers;
+using RepoDb.StatementBuilders;
 
 namespace DataAccess.DBAccess
 {
@@ -26,29 +32,12 @@ namespace DataAccess.DBAccess
             return ConfigurationManager.ConnectionStrings[name].ConnectionString;
         }
 
-        public IDbConnection CreateConnection(string connectionId = "Default")
+        public SqlConnection CreateConnection(string connectionId = "Default")
         {
-            IDbConnection connection = new SqlConnection(_config.GetConnectionString(connectionId));
+            SqlConnection connection = new SqlConnection(_config.GetConnectionString(connectionId));
             return connection;
         }
 
-        public async Task<IEnumerable<T>> LoadData<T, U>(
-            string storedProcedure,
-            U parameters,
-            string connectionId = "Default")
-        {
-            using IDbConnection connection = new SqlConnection(_config.GetConnectionString(connectionId));
-            return await connection.QueryAsync<T>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
-        }
-
-        public async Task SaveData<T>(
-            string storedProcedure,
-            T parameters,
-            string connectionId = "Default")
-        {
-            using IDbConnection connection = new SqlConnection(_config.GetConnectionString(connectionId));
-            await connection.ExecuteAsync(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
-
-        }
+     
     }
 }

@@ -12,7 +12,7 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "9TailsSQL", "9TailsSQL\9Tai
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\DataAccess.csproj", "{F9DA8F33-7215-4668-A148-628C217EF98A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scraper", "Scraper\Scraper.csproj", "{068D17FB-142E-4D58-A83E-672AF2F6103F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scraper", "Scraper\Scraper.csproj", "{068D17FB-142E-4D58-A83E-672AF2F6103F}"
 	ProjectSection(ProjectDependencies) = postProject
 		{F9DA8F33-7215-4668-A148-628C217EF98A} = {F9DA8F33-7215-4668-A148-628C217EF98A}
 	EndProjectSection

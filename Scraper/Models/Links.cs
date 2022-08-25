@@ -9,7 +9,7 @@ namespace Scraper.Models
     public class Links
     {
   
-
+    public int Id { get; set; }
     public int? SeriesId { get; set; }
 	public int? Episode { get; set; }
 	public string Source { get; set; }

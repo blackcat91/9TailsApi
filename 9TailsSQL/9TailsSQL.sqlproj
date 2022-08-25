@@ -79,5 +79,6 @@
     <None Include="PublishProfiles\9TailsSQL.publish.xml" />
     <None Include="Functions\AddGenres.sql" />
     <None Include="Functions\CreateLinks.sql" />
+    <None Include="Functions\LinkMaker.sql" />
   </ItemGroup>
 </Project>

@@ -8,9 +8,10 @@ using System.Data;
 using System.Linq;
 using DataAccess.DBAccess;
 using Scraper.Models;
-using RepoDb;
+
 using System.Collections;
 using System.Web;
+using RepoDb;
 using RepoDb.DbSettings;
 using RepoDb.DbHelpers;
 using RepoDb.StatementBuilders;
@@ -18,28 +19,49 @@ using System.Threading;
 using System.Threading.Tasks;
 using AngleSharp.Io;
 
-namespace Scraper { 
+namespace Scraper
+{
     public class Program
     {
 
-      
+
 
         static async Task Main(string[] args)
         {
-            var scraper = new DataScraper();
-            foreach (var page in Enumerable.Range(1, 392))
+            Console.WriteLine("Trying...");
+            try
             {
-
-                var t = Task.Run(async () => { await scraper.Initialize(page); });
-                t.Wait();
-                
-
+                await GenerateMethods();
             }
-                
+            catch(Exception e)
+            {
+                Console.WriteLine($"Failed: {e.Message}");
+            }
+            
+            
+
+
 
         }
 
- 
+         static async Task GenerateMethods()
+        {
+           
+
+            for(int i=79; i<=392; i+=3)
+            {
+                var scraper = new DataScraper();
+                var tasks = new List<Task>();
+                tasks.Add(Task.Run(() => scraper.Initialize(i)));
+                tasks.Add(Task.Run(() => scraper.Initialize(i+1)));
+                tasks.Add(Task.Run(() => scraper.Initialize(i+2)));
+                
+                await Task.WhenAll(tasks);
+
+            }
+        }
+
+
     }
 
     public class DataScraper
@@ -60,7 +82,7 @@ namespace Scraper {
             SqlServerBootstrap.Initialize();
             _dbSettings = new SqlServerDbSetting();
             DbSettingMapper
-    .Add<System.Data.SqlClient.SqlConnection>(_dbSettings, true);
+                .Add<System.Data.SqlClient.SqlConnection>(_dbSettings, true);
             DbHelperMapper
                 .Add<System.Data.SqlClient.SqlConnection>(new SqlServerDbHelper(), true);
             StatementBuilderMapper
@@ -73,7 +95,7 @@ namespace Scraper {
         public async Task Initialize(int page)
         {
             var response = await _http.GetAsync(string.Concat(PAGEURL, page));
-            if(((int)response.StatusCode) == 200)
+            if (((int)response.StatusCode) == 200)
             {
                 var document = await _context!.OpenAsync(r => r.Content(response.Content.ReadAsStream())).WaitAsync(TimeSpan.FromMinutes(5));
 
@@ -107,11 +129,11 @@ namespace Scraper {
                         await GetAnime(anime);
                     }
                 }
-                
-                    
+
+
             }
-                
-            
+
+
         }
         public async Task GetAnime(AngleSharp.Dom.IElement? anime)
         {
@@ -143,43 +165,43 @@ namespace Scraper {
             }
         }
 
-        public async Task GetEpisodes(AngleSharp.Dom.IHtmlCollection<AngleSharp.Dom.IElement> episodes, int? animeId )
+        public async Task GetEpisodes(AngleSharp.Dom.IHtmlCollection<AngleSharp.Dom.IElement> episodes, int? animeId)
         {
             Console.WriteLine("Creating Data...");
-            
-            foreach(var episode in episodes)
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                var document = await _context!.OpenAsync(string.Concat("https://animefrenzy.net", episode.GetAttribute("href"))).WaitAsync(TimeSpan.FromMinutes(5));
-                
-                var links = document.QuerySelectorAll("a.btn-server");
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                foreach (var episode in episodes)
                 {
+                    var document = await _context!.OpenAsync(string.Concat("https://animefrenzy.net", episode.GetAttribute("href"))).WaitAsync(TimeSpan.FromMinutes(5));
 
-                    foreach (var link in links)
+                    var links = document.QuerySelectorAll("a.btn-server");
+                    
+
+                    var href = links[0].GetAttribute("href");
+                    if (href!.StartsWith("/"))
                     {
-                        var href = link.GetAttribute("href");
-                        if (href!.StartsWith("/"))
-                        {
-                            href = string.Concat("https://animefrenzy.net", href);
-                        }
-                        var data = new Links();
-                        data.SeriesId = animeId;
-                        data.Source = link.TextContent.Trim();
-                        var epNum = episode.TextContent.Trim();
-                        try { data.Episode = Int32.Parse(epNum); }
-                        catch { data.Episode = Int32.Parse(epNum.Split('-')[0]); }
-                        data.Link = href;
-                        connection.Insert<Links>(data);
-                        
+                        href = string.Concat("https://animefrenzy.net", href);
                     }
-                    Console.WriteLine("Inserts Completed \n");
-                }
-            }    
+                    var data = new Links();
+                    data.SeriesId = animeId;
+                    data.Source = links[0].TextContent.Trim();
+                    var epNum = episode.TextContent.Trim();
+                    try { data.Episode = Int32.Parse(epNum); }
+                    catch { data.Episode = Int32.Parse(epNum.Split('-')[0]); }
+                    var exists = connection.Query<Links>(d => d.SeriesId == data.SeriesId && d.Episode == data.Episode);
+                    Console.WriteLine("Checking For Duplicates...");
+                    if (exists.Any()) continue;
+                    data.Link = href;
+                    connection.Insert<Links>(data);
+                    
 
-            
+                }
+                Console.WriteLine("Inserts Completed \n");
+            }
+
         }
 
-      
+
     }
 }
 
