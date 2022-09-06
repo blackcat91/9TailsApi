@@ -9,6 +9,8 @@
             app.MapPost("/create_room", CreateRoom);
             app.MapPost("/search_animes", SearchAnime);
             app.MapGet("/get_episodes/{id}", GetLinks);
+            app.MapGet("/get_anime/{id}", GetAnime);
+            app.MapGet("/get_episode/{seriesId}/{episode}", GetEpisode);
             app.MapGet("/get_room/{id}", GetRoom);
             app.MapGet("/get_messages/{roomId}", GetMessages);
             app.MapPost("/send_message", SendMessage);
@@ -101,6 +103,19 @@
                 return Results.Problem(ex.Message);
             }
         }
+        public static async Task<IResult> GetAnime(int id, IAnimeData data)
+        {
+            try
+            {
+                var results = await data.GetAnime(id);
+                if (results == null) return Results.NotFound();
+                return Results.Ok(results);
+            }
+            catch (Exception ex)
+            {
+                return Results.Problem(ex.Message);
+            }
+        }
 
         public static async Task<IResult> SearchAnime(string query, IAnimeData data)
         {
@@ -129,6 +144,22 @@
                 return Results.Problem(ex.Message);
             }
         }
+
+        public static async Task<IResult> GetEpisode(int seriesId,  int episode, IAnimeData data)
+        {
+            try
+            {
+                var results = await data.GetEpisode(seriesId, episode);
+                if (results == null) return Results.NotFound();
+                return Results.Ok(results);
+            }
+            catch (Exception ex)
+            {
+                return Results.Problem(ex.Message);
+            }
+        }
+
+
 
     }
 }

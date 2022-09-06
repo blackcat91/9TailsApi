@@ -34,6 +34,25 @@ namespace DataAccess.Data.Anime
                 .Add<SqlConnection>(new SqlServerStatementBuilder(_dbSettings), true);
         }
 
+
+        public async Task<Details?> GetAnime(int id)
+        {
+            using (var conn = _sql.CreateConnection())
+            {
+                try
+                {
+                    var results = conn.Query<Details>(d => d.Id == id).FirstOrDefault();
+                    return results;
+                }
+                catch (Exception ex)
+                {
+                    return null;
+                }
+
+            }
+
+        }
+
         public async Task<IEnumerable<Details>?> SearchAnimes(string query)
         {
             query = $"{query}%";
@@ -50,7 +69,7 @@ namespace DataAccess.Data.Anime
                 try
                 {
                     var results = (await conn.QueryAsync<Details>(queryGroup)).OrderBy(d => d.Title);
-                    
+
                     return results;
                 }
                 catch (Exception ex)
@@ -69,7 +88,30 @@ namespace DataAccess.Data.Anime
                 try
                 {
                     var orderBy = new OrderField("Episode", Order.Ascending);
-                    var results = (await conn.QueryAsync<Links>(where: new QueryField("SeriesId", Operation.Equal, id), orderBy: new List<OrderField>{ orderBy }));;
+                    var results = (await conn.QueryAsync<Links>(where: new QueryField("SeriesId", Operation.Equal, id), orderBy: new List<OrderField> { orderBy })); ;
+                    return results;
+                }
+                catch (Exception ex)
+                {
+                    return null;
+                }
+
+            }
+        }
+
+        public async Task<Links?> GetEpisode(int seriesId, int episode)
+        {
+            var queryFields = new[]
+           {
+                new QueryField("SeriesId", Operation.Equal, seriesId),
+                new QueryField("Episode", Operation.Equal, episode),
+            };
+            using (var conn = _sql.CreateConnection())
+            {
+                try
+                {
+                    var orderBy = new OrderField("Episode", Order.Ascending);
+                    var results = (await conn.QueryAsync<Links>(queryFields)).FirstOrDefault();
                     return results;
                 }
                 catch (Exception ex)
