@@ -1,3 +1,0 @@
-﻿ALTER TABLE dbo.Links 
-ADD Url NVARCHAR(MAX) NULL;
-
