@@ -1,6 +1,6 @@
-﻿global using DataAccess.DBAccess;
-global using DataAccess.Data;
-global using DataAccess.Models;
-global using DataAccess.Helpers;
-global using DataAccess.Data.Rooms;
-global using DataAccess.Data.Anime;
+﻿global using NineTails.DataAccess.DBAccess;
+global using NineTails.DataAccess.Data;
+global using NineTails.DataAccess.Models;
+global using NineTails.DataAccess.Helpers;
+global using NineTails.DataAccess.Data.Rooms;
+global using NineTails.DataAccess.Data.Anime;

@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Dapper;
 using System.Data.SqlClient;
 using System.Data;
-using Microsoft.Extensions.Configuration;
 using System.Configuration;
 using RepoDb;
 using System.Collections;
@@ -15,7 +13,8 @@ using RepoDb.DbSettings;
 using RepoDb.DbHelpers;
 using RepoDb.StatementBuilders;
 
-namespace DataAccess.DBAccess
+
+namespace NineTails.DataAccess.DBAccess
 {
     public class SQLAccess
     {
@@ -29,7 +28,7 @@ namespace DataAccess.DBAccess
 
         public  string GetConnectionString(string name = "DapperDB")
         {
-            return ConfigurationManager.ConnectionStrings[name].ConnectionString;
+            return _config.GetConnectionString(name);
         }
 
         public SqlConnection CreateConnection(string connectionId = "Default")

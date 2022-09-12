@@ -10,20 +10,20 @@ using RepoDb.DbHelpers;
 using RepoDb.StatementBuilders;
 using AngleSharp;
 using AngleSharp.Js;
-using DataAccess.DBAccess;
-using DataAccess.Data.Rooms;
-using DataAccess.Models;
+
 using System.Data.SqlClient;
 using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Net.Http.Json;
+using NineTails.DataAccess.DBAccess;
+using NineTails.DataAccess.Models;
 
-namespace DataAccess.Helpers
+namespace NineTails.DataAccess.Helpers
 {
     public class HelperClass
     {
 
-        private readonly IConfiguration? _config;
+        private readonly AngleSharp.IConfiguration? _config;
        
         private readonly HttpClient _http;
         private readonly IBrowsingContext? _context;
@@ -94,29 +94,21 @@ namespace DataAccess.Helpers
         {
             
 
-            var url = new UrlReturn{ url = link };
+            var url = new VideoUrl{ Url = link, Anime = anime, Episode = episode };
 
 
 
-            var response = await _http.PostAsJsonAsync("http://localhost:4000/convert", url);
-            if (((int)response.StatusCode) == 200)
-            {
-                var data =await response.Content.ReadFromJsonAsync<UrlReturn>();
-                using (SqlConnection connection = _sql.CreateConnection())
-                {
-                    var old = (await connection.QueryAsync<Links>(l => l.SeriesId == anime && l.Episode == episode)).FirstOrDefault();
-                    old!.Url = string.Concat("http://localhost:4000", data!.url!);
-                    await connection.UpdateAsync<Links>(old);
-                }
-                    
-                return string.Concat("http://localhost:4000", data!.url!);
-            }
+            var response = await _http.PostAsJsonAsync("https://us-central1-animates-361800.cloudfunctions.net/downloadVideo", url);
+           
             return await response.Content.ReadAsStringAsync();
         }
     }
 
-    public class UrlReturn {
-        public string? url { get; set; }
- 
-}
+   
+public class VideoUrl
+    {
+        public string? Url { get; set; }
+        public int? Anime { get; set; }
+        public int? Episode { get; set; }
+    }
 }

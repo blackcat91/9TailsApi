@@ -1,6 +1,6 @@
-﻿using DataAccess.Models;
+﻿using NineTails.DataAccess.Models;
 
-namespace DataAccess.Data.Anime
+namespace NineTails.DataAccess.Data.Anime
 {
     public interface IAnimeData
     {

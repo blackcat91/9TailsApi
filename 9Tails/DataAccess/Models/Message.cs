@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace DataAccess.Models
+namespace NineTails.DataAccess.Models
 {
     public class Message
     {

@@ -5,13 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using MongoDB.Driver;
-using DataAccess.DBAccess;
-using DataAccess.Models;
-using DataAccess.Helpers;
+using NineTails.DataAccess.Helpers;
 using MongoDB.Bson;
 using System.Diagnostics;
+using NineTails.DataAccess.DBAccess;
+using NineTails.DataAccess.Models;
 
-namespace DataAccess.Data.Rooms
+namespace NineTails.DataAccess.Data.Rooms
 {
     public class RoomData : IRoomData
     {
@@ -29,8 +29,6 @@ namespace DataAccess.Data.Rooms
 
         public async Task<Room> CreateRoom(Room room)
         {
-
-
 
             await _rooms.InsertOneAsync(room);
             var filter = Builders<Room>.Filter.Eq("Id", room.Id);
@@ -87,13 +85,13 @@ namespace DataAccess.Data.Rooms
 
         public async Task? SendMessage(SendMessage messageBundle)
         {
-           
-                var filter = Builders<Room>.Filter.Eq("Name", messageBundle.Name);
-                var room = (await _rooms.FindAsync(filter)).FirstOrDefault();
-                var filter2 = Builders<Room>.Filter.Eq("Id", room.Id);
-                var def = Builders<Room>.Update.AddToSet("Messages", messageBundle.Message);
-                var updateOptions = new UpdateOptions { IsUpsert = false };
-                await _rooms.UpdateOneAsync(filter2, def, updateOptions);
+
+            var filter = Builders<Room>.Filter.Eq("Name", messageBundle.Name);
+            var room = (await _rooms.FindAsync(filter)).FirstOrDefault();
+            var filter2 = Builders<Room>.Filter.Eq("Id", room.Id);
+            var def = Builders<Room>.Update.AddToSet("Messages", messageBundle.Message);
+            var updateOptions = new UpdateOptions { IsUpsert = false };
+            await _rooms.UpdateOneAsync(filter2, def, updateOptions);
 
         }
 

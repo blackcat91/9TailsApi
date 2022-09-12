@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\brand\\Documents\\GitHub\\9TailsApi - Copy\\9Tails\\9Tails.csproj": {}
+    "C:\\Users\\brand\\Documents\\GitHub\\9TailsApiRefactored\\9Tails\\9Tails.csproj": {}
   },
   "projects": {
-    "C:\\Users\\brand\\Documents\\GitHub\\9TailsApi - Copy\\9Tails\\9Tails.csproj": {
+    "C:\\Users\\brand\\Documents\\GitHub\\9TailsApiRefactored\\9Tails\\9Tails.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\brand\\Documents\\GitHub\\9TailsApi - Copy\\9Tails\\9Tails.csproj",
+        "projectUniqueName": "C:\\Users\\brand\\Documents\\GitHub\\9TailsApiRefactored\\9Tails\\9Tails.csproj",
         "projectName": "9Tails",
-        "projectPath": "C:\\Users\\brand\\Documents\\GitHub\\9TailsApi - Copy\\9Tails\\9Tails.csproj",
+        "projectPath": "C:\\Users\\brand\\Documents\\GitHub\\9TailsApiRefactored\\9Tails\\9Tails.csproj",
         "packagesPath": "C:\\Users\\brand\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\brand\\Documents\\GitHub\\9TailsApi - Copy\\9Tails\\obj\\",
+        "outputPath": "C:\\Users\\brand\\Documents\\GitHub\\9TailsApiRefactored\\9Tails\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\brand\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -26,11 +26,7 @@
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
-            "projectReferences": {
-              "C:\\Users\\brand\\Documents\\GitHub\\9TailsApi - Copy\\9Tails\\DataAccess\\DataAccess.csproj": {
-                "projectPath": "C:\\Users\\brand\\Documents\\GitHub\\9TailsApi - Copy\\9Tails\\DataAccess\\DataAccess.csproj"
-              }
-            }
+            "projectReferences": {}
           }
         },
         "warningProperties": {
@@ -43,6 +39,14 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "AngleSharp": {
+              "target": "Package",
+              "version": "[0.17.1, )"
+            },
+            "AngleSharp.Js": {
+              "target": "Package",
+              "version": "[0.15.0, )"
+            },
             "MongoDB.Bson": {
               "target": "Package",
               "version": "[2.17.1, )"
@@ -55,9 +59,21 @@
               "target": "Package",
               "version": "[13.0.1, )"
             },
+            "RepoDb": {
+              "target": "Package",
+              "version": "[1.12.10, )"
+            },
+            "RepoDb.SqlServer": {
+              "target": "Package",
+              "version": "[1.1.5, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.2.3, )"
+            },
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.8.3, )"
             }
           },
           "imports": [

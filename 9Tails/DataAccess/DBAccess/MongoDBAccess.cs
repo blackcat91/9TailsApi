@@ -3,10 +3,9 @@ using Microsoft.Extensions.Configuration;
 using System.Configuration;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using Newtonsoft.Json;
-using DataAccess.Models;
 
-namespace DataAccess.DBAccess
+
+namespace NineTails.DataAccess.DBAccess
 {
     public class MongoDBAccess
     {

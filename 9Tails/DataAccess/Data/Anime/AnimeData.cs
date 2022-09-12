@@ -1,4 +1,4 @@
-﻿using DataAccess.DBAccess;
+﻿using NineTails.DataAccess.DBAccess;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +12,10 @@ using RepoDb.DbHelpers;
 using RepoDb.StatementBuilders;
 using System.Data.SqlClient;
 using RepoDb.Enumerations;
-using DataAccess.Models;
+using NineTails.DataAccess.Models;
+using NineTails.DataAccess.Helpers;
 
-namespace DataAccess.Data.Anime
+namespace NineTails.DataAccess.Data.Anime
 {
     public class AnimeData : IAnimeData
     {

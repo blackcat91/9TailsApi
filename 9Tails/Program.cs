@@ -1,5 +1,7 @@
 
 using NineTails;
+using NineTails.DataAccess.Data.Anime;
+using NineTails.DataAccess.DBAccess;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,8 +27,7 @@ builder.Services.AddCors(options =>
 
 
 var app = builder.Build();
-var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
-var https = $"https://0.0.0.0:{port}";
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -39,5 +40,5 @@ app.UseHttpsRedirection();
 app.UseCors(MyAllowSpecificOrigins);
 app.ConfigureApi();
 
-app.Run(https);
+app.Run();
 

@@ -1,6 +1,6 @@
-﻿using DataAccess.Models;
+﻿using NineTails.DataAccess.Models;
 
-namespace DataAccess.Data.Rooms
+namespace NineTails.DataAccess.Data.Rooms
 {
     public interface IRoomData
     {
@@ -9,7 +9,7 @@ namespace DataAccess.Data.Rooms
         Task<IEnumerable<Message>> GetMessages(string roomId);
         Task<Room> GetRoom(string id);
         Task<IEnumerable<Room>?> SearchRooms(string query);
-        Task SendMessage(SendMessage messageBundle);
+        Task? SendMessage(SendMessage messageBundle);
         Task<PlaylistItem?> UpdatePlaylistItem(PlaylistItem item);
         Task<Room> UpdateRoom(Room room);
     }
