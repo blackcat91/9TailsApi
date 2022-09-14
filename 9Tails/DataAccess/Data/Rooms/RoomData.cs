@@ -100,8 +100,7 @@ namespace NineTails.DataAccess.Data.Rooms
 
             try
             {
-                if (item.RoomId != null)
-                {
+              
                     var room = _rooms.Find(r => r.Id == item.RoomId).FirstOrDefault();
                     var itemIndex = room.Playlist.FindIndex(i => i.SeriesId == item.SeriesId && i.Url == item.Url && i.Episode == item.Episode);
                     Debug.WriteLine(itemIndex);
@@ -118,15 +117,10 @@ namespace NineTails.DataAccess.Data.Rooms
                         return null;
                     }
 
-                }
-                item.Url = await _helper.CheckLink(item)!;
-
-
-                if (item.Url == null) return null;
-                return item;
             }
             catch (Exception ex)
             {
+                Debug.WriteLine(ex.Message);
                 return item;
             }
 

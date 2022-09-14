@@ -23,7 +23,7 @@ namespace NineTails.DataAccess.Models
         public Details FavoriteAnime { get; set; }
         public string Bio { get; set; }
         public string Avatar { get; set; } = "https://www.looper.com/img/gallery/the-entire-avatar-the-last-airbender-timeline-explained/intro-1579265101.jpg";
-       
+    
         public string Password { get; set; }
         public bool IsPrivate { get; set; } = false;
         public bool ShowFullName { get; set; } = false;
@@ -32,5 +32,6 @@ namespace NineTails.DataAccess.Models
         public DateTime Joined { get; set; } = DateTime.Now;
 
         public List<Users> Followers { get; set; } = new List<Users>();
+        public List<Users> Following { get; set; } = new List<Users>();
     }
 }

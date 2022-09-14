@@ -30,8 +30,9 @@ namespace NineTails.DataAccess.Models
         public List<string> Members { get; set; } = new List<string> { };
         public List<Message> Messages { get; set; } = new List<Message> { };
 
-
+        public int CurrentIndex { get; set; } = 0;
        
+        
         
 
 
